@@ -60,7 +60,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         </div>
                     </div>
                 `;
-                document.getElementById("today-forecast").innerHTML = todayOutput;
+                document.getElementById("chosen-forecast").innerHTML = todayOutput;
                 
                 // build weekly forecast table starting from inputted date
                 const index = results.data.findIndex(row => row["Date"] === targetDate);
