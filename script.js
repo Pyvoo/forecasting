@@ -27,8 +27,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 if (!match) return alert("No data found for " + targetDate + "!");
                 
-                // build card for today's forecast/weather
-                const todayOutput = `
+                // build card for chosen's forecast/weather
+                const chosenOutput = `
                     <div class="card px-0">
                         <div class="card-header">
                             <h6 class="text-uppercase text-center text-body-secondary my-4">
@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", function () {
                             </h6>
                             <div class="row g-0 align-items-center justify-content-center">
                                 <div class="col-auto">
-                                    <div class="display-2 mb-0">${parseFloat(match["Temperature (mean)(Centigrade)"]).toFixed(1)}°C</div>
+                                    <div class="display-2 mb-0">${((parseFloat(match["Temperature (mean)(Centigrade)"]) * (9/5)) + 32).toFixed(1)}°F</div>
                                 </div>
                             </div>
                             <div class="h6 text-uppercase text-center text-body-secondary mb-5">
@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", function () {
                             <div class="mb-3">
                                 <ul class="list-group list-group-flush">
                                     <li class="list-group-item d-flex align-items-center justify-content-between px-0">
-                                        <small>Precipitation (cm)</small> <small>${parseFloat(match["Precipitation (cm/day)"]).toFixed(2)}</small>
+                                        <small>Precipitation (in)</small> <small>${(parseFloat(match["Precipitation (cm/day)"]) * 0.393701).toFixed(2)}</small>
                                     </li>
                                     <li class="list-group-item d-flex align-items-center justify-content-between px-0">
                                         <small>Humidity</small> <small>${parseFloat(match["Daylight Relative Humidity (%)"]).toFixed(0)}%</small>
@@ -60,7 +60,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         </div>
                     </div>
                 `;
-                document.getElementById("chosen-forecast").innerHTML = todayOutput;
+                document.getElementById("chosen-forecast").innerHTML = chosenOutput;
                 
                 // build weekly forecast table starting from inputted date
                 const index = results.data.findIndex(row => row["Date"] === targetDate);
@@ -71,7 +71,7 @@ document.addEventListener("DOMContentLoaded", function () {
                             <tr>
                                 <th style="text-align: center; vertical-align: middle;">Date</th>
                                 <th style="text-align: center; vertical-align: middle;">Temperature</th>
-                                <th style="text-align: center; vertical-align: middle;">Precipitation (cm)</th>
+                                <th style="text-align: center; vertical-align: middle;">Precipitation (in)</th>
                                 <th style="text-align: center; vertical-align: middle;">Humidity</th>
                                 <th style="text-align: center; vertical-align: middle;">Solar Radiation (Langleys)</th>
                             </tr>
@@ -82,8 +82,8 @@ document.addEventListener("DOMContentLoaded", function () {
                     weeklyTable += `
                         <tr>
                             <td>${row["Date"]}</td>
-                            <td>${parseFloat(row["Temperature (mean)(Centigrade)"]).toFixed(1)}°C</td>
-                            <td>${parseFloat(row["Precipitation (cm/day)"]).toFixed(2)}</td>
+                            <td>${((parseFloat(row["Temperature (mean)(Centigrade)"]) * (9/5)) + 32).toFixed(1)}°F</td>
+                            <td>${(parseFloat(match["Precipitation (cm/day)"]) * 0.393701).toFixed(2)}</td>
                             <td>${parseFloat(row["Daylight Relative Humidity (%)"]).toFixed(0)}%</td>
                             <td>${parseFloat(row["Solar Radiation (Langleys/day)"]).toFixed(1)}</td>
                         </tr>
